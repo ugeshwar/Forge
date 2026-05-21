@@ -3,10 +3,22 @@ from forge.config.settings import settings
 from forge.core.logger import setup_logging, get_logger
 from forge.api.middleware import RequestMiddleware
 from forge.api.error_handler import register_error_handlers
-from forge.core.exceptions import NotFoundError
+from forge.infra.db.mongo import connect as mongo_connect, disconnect as mongo_disconnect
+from forge.infra.cache.redis import connect as redis_connect, disconnect as redis_disconnect
+from contextlib import asynccontextmanager
 
 logger = get_logger(__name__)
 
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    logger.info("forge_starting")
+    await mongo_connect()
+    await redis_connect()
+    logger.info("forge_ready")
+    yield
+    logger.info("forge_stopping")
+    await mongo_disconnect()
+    await redis_disconnect()
 
 def create_app() -> FastAPI:
     setup_logging()

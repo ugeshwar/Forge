@@ -1,0 +1,25 @@
+services:
+  mongo:
+    image: mongo:7
+    container_name: forge-mongo
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: forge
+      MONGO_INITDB_ROOT_PASSWORD: forge_secret
+      MONGO_INITDB_DATABASE: forge
+    volumes:
+      - mongo_data:/data/db
+  
+  redis:
+    image: redis:7-alpine
+    container_name: forge-redis
+    ports:
+      - "6379:6379"
+    command: redis-server --requirepass redis_secret
+    volumes:
+      - redis_data:/data
+
+volumes:
+  mongo_data:
+  redis_data:

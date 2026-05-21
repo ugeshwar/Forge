@@ -17,5 +17,12 @@ class Settings(BaseSettings):
     host: str = "0.0.0.0"
     port: int = 8000
 
+    # Database
+    mongo_url: str
+    mongo_db_name: str = "forge"
+
+    # Cache
+    redis_url: str
+
 
 settings = Settings()
