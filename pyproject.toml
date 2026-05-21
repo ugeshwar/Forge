@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "forge"
+version = "0.1.0"
+description = "Enterprise Agentic AI Platform"
+authors = ["Ugesh"]
+packages = [{include = "forge"}]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+fastapi = "^0.136.1"
+uvicorn = {extras = ["standard"], version = "^0.47.0"}
+pydantic-settings = "^2.14.1"
+pydantic = "^2.13.4"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
