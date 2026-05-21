@@ -2,6 +2,8 @@ from fastapi import FastAPI
 from forge.config.settings import settings
 from forge.core.logger import setup_logging, get_logger
 from forge.api.middleware import RequestMiddleware
+from forge.api.error_handler import register_error_handlers
+from forge.core.exceptions import NotFoundError
 
 logger = get_logger(__name__)
 
@@ -16,6 +18,7 @@ def create_app() -> FastAPI:
     )
 
     app.add_middleware(RequestMiddleware)
+    register_error_handlers(app)
 
     @app.get("/health")
     async def health() -> dict:
