@@ -10,10 +10,14 @@ python = "^3.11"
 fastapi = "^0.136.1"
 uvicorn = {extras = ["standard"], version = "^0.47.0"}
 pydantic-settings = "^2.14.1"
-pydantic = "^2.13.4"
+pydantic = {extras = ["email"], version = "^2.13.4"}
 structlog = "^25.5.0"
 motor = "^3.7.1"
 redis = "^7.4.0"
+python-jose = {extras = ["cryptography"], version = "^3.5.0"}
+passlib = {extras = ["bcrypt"], version = "^1.7.4"}
+python-multipart = "^0.0.29"
+bcrypt = "^5.0.0"
 
 [build-system]
 requires = ["poetry-core"]

@@ -24,5 +24,10 @@ class Settings(BaseSettings):
     # Cache
     redis_url: str
 
+    # Auth
+    jwt_secret: str
+    jwt_algorithm: str = "HS256"
+    jwt_access_token_expire_minutes: int = 15
+    jwt_refresh_token_expire_days: int = 7
 
 settings = Settings()
