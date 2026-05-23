@@ -30,4 +30,9 @@ class Settings(BaseSettings):
     jwt_access_token_expire_minutes: int = 15
     jwt_refresh_token_expire_days: int = 7
 
+    # QDRANT
+    # Vector DB
+    qdrant_url: str
+    qdrant_api_key: str
+
 settings = Settings()

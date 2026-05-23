@@ -1,7 +1,7 @@
 from fastapi import FastAPI, Depends
 from forge.config.settings import settings
 from forge.core.logger import setup_logging, get_logger
-from forge.api.middleware import RequestMiddleware
+from forge.api.middleware import RequestMiddleware, RateLimitMiddleware
 from forge.api.error_handler import register_error_handlers
 from forge.infra.db.mongo import connect as mongo_connect, disconnect as mongo_disconnect
 from forge.infra.cache.redis import connect as redis_connect, disconnect as redis_disconnect
@@ -34,6 +34,8 @@ def create_app() -> FastAPI:
         lifespan=lifespan,
     )
 
+    # app.add_middleware(RateLimitMiddleware)
+    app.add_middleware(RateLimitMiddleware, user_limit=60, tenant_limit=1000, window_seconds=60)
     app.add_middleware(RequestMiddleware)
     register_error_handlers(app)
     app.include_router(auth_router)

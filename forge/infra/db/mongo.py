@@ -8,7 +8,7 @@ _client: AsyncIOMotorClient | None = None
 
 async def connect() -> None:
     global _client
-    _client = AsyncIOMotorClient(settings.mongo_url)
+    _client = AsyncIOMotorClient(settings.mongo_url, serverSelectionTimeoutMS=5000, connectTimeoutMS=3000)
     await _client.admin.command("ping")
     logger.info("mongodb_connected")
 
