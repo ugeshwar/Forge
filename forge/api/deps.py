@@ -13,7 +13,7 @@ async def get_current_user(credentials: HTTPAuthorizationCredentials = Depends(b
         return cached
     
     token = credentials.credentials
-    payload = decode_access_token(token)
+    payload = await decode_access_token(token)
     tenant_id_var.set(payload["tenant_id"])
     return payload
 

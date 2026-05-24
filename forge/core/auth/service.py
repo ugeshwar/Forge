@@ -33,6 +33,8 @@ class AuthService:
         return user
     
     async def login(self, email: str, password: str) -> dict:
+        from forge.infra.db.repositories.token_repository import TokenRepository
+
         user = await self.repo.find_by_email(email)
 
         if not user or not verify_password(password, user.hashed_password):
@@ -47,10 +49,15 @@ class AuthService:
             role=user.role,
         )
 
+        token_repo = TokenRepository(tenant_id=self.tenant_id)
+        await token_repo.ensure_indexes()
+        refresh_token = await token_repo.create_refresh_token(user_id=user.id)
+
         logger.info("user_logged_in", user_id=user.id, tenant_id=self.tenant_id)
 
         return {
             "access_token": token,
+            "refresh_token": refresh_token,
             "token_type": "bearer",
             "expires_in": 900,
         }

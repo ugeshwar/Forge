@@ -16,3 +16,12 @@ class User(BaseModel):
     is_active: bool = True
     created_at: datetime
     updated_at: datetime
+
+class RefreshToken(BaseModel):
+    id: str
+    user_id: str
+    tenant_id: str
+    token_hash: str
+    expires_at: datetime
+    is_used: bool = False
+    created_at: datetime

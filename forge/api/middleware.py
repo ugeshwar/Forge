@@ -68,7 +68,7 @@ class RateLimitMiddleware(BaseHTTPMiddleware):
                 from forge.core.auth.jwt import decode_access_token
                 from forge.core.context import current_user_var, tenant_id_var
                 token = auth_header.split(" ")[1]
-                payload = decode_access_token(token)
+                payload = await decode_access_token(token)
                 current_user_var.set(payload)
                 tenant_id = payload.get("tenant_id")
                 tenant_id_var.set(tenant_id)
