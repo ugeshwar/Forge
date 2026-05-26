@@ -10,6 +10,8 @@ from forge.infra.cache.redis import get_client
 from contextlib import asynccontextmanager
 from forge.api.deps import get_current_user
 from forge.api.routes.auth import router as auth_router
+from forge.api.routes.agents import router as agent_router
+from forge.api.routes.chat import router as chat_router
 
 logger = get_logger(__name__)
 
@@ -39,6 +41,8 @@ def create_app() -> FastAPI:
     app.add_middleware(RequestMiddleware)
     register_error_handlers(app)
     app.include_router(auth_router)
+    app.include_router(agent_router)
+    app.include_router(chat_router)
 
     @app.get("/me")
     async def me(current_user: dict = Depends(get_current_user)) -> dict:

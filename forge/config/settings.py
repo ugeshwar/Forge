@@ -35,4 +35,9 @@ class Settings(BaseSettings):
     qdrant_url: str
     qdrant_api_key: str
 
+    # LLM
+    llm_base_url: str = "http://localhost:11434/v1"
+    llm_api_key: str = "ollama"
+    default_model: str = "llama3.2:3b"
+
 settings = Settings()
